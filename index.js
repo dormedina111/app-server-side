@@ -71,6 +71,18 @@ io.on('connection', (socket) => {
             socket.to(roomId).emit('codeSolved', solved);
         });
 
+        // Event handler for user leave room
+        socket.on('leaveRoom', (id) => {
+            console.log('A user left room:', socket.id);
+            if (roomData[id]) {
+                roomData[id].users.delete(socket.id);
+                // Delete the room if it becomes empty
+                if (roomData[id].users.size === 0) {
+                    delete roomData[id];
+                }
+            }
+        });
+
         // Event handler for user disconnection
         socket.on('disconnect', () => {
             console.log('A user disconnected:', socket.id);

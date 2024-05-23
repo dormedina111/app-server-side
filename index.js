@@ -25,7 +25,7 @@ const server = http.createServer(app);
 // Initialize socket.io with the created HTTP server
 const io = new Server(server, {
     cors: {
-        origin: 'http://localhost:3000', 
+        origin: process.env.REACT_APP_URL_SOCKET, 
         methods: ['GET', 'POST'], 
     }
 });
